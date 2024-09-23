@@ -1,0 +1,12 @@
+#gameselector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 24px;
+}
+
+select{
+  width: 200px;
+  height: 50px;
+  text-align: center;
+}

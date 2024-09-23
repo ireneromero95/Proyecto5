@@ -1,0 +1,38 @@
+ .cofre {
+  width: 150px;
+  position: absolute;
+  z-index: 980;
+  right: 130px;
+  bottom: 20px; 
+} 
+
+
+.gema {
+  position: absolute;
+  width: 50px;
+  cursor: pointer;
+  filter: drop-shadow(0px 0px 2px #000000);
+  transition: all 0.5s;
+}
+
+#interfaz{
+  margin-top: 40px;
+  height: 100vh;
+  max-height: 600px;
+  display: grid;
+  grid-template-columns: 80% 20% ;
+  justify-content: center; 
+}
+
+ #botones{
+  display: flex;
+  margin-right: 5rem;
+}
+
+
+#botones > *{
+  margin: auto 4px;
+  border-radius: 30px;
+}
+
+

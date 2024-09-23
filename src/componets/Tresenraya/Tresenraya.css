@@ -1,0 +1,44 @@
+.casilla{
+  background-color: white;
+  background-image: none;
+  background-size: cover;
+  width: 280px;
+  height: 280px;
+  position: relative;
+  transition: transform 0.7s;
+  cursor: pointer;
+  border: 1px solid #000;
+}
+
+.casilla:hover {
+  background-color: gray;
+}
+
+
+#tablero {
+  margin-top: 40px;
+  height: 100vh;
+  max-height: 700px;
+  display: grid;
+  grid-template-columns: 280px 280px 280px;
+  justify-content: center;
+}
+
+@media (max-width: 726px){
+  #tablero {
+    margin-top: 20px;
+    height: 50vh;
+    max-height: 700px;
+    display: grid;
+    grid-template-columns: 180px 180px 180px;
+    justify-content: center;
+  }
+  .casilla{
+    width: 180px;
+    height: 180px;
+    position: relative;
+    transition: transform 0.7s;
+    cursor: pointer;
+    border: 1px solid #000;
+  }
+}
