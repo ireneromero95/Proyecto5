@@ -1,4 +1,4 @@
-.casilla{
+.casilla {
   background-color: white;
   background-image: none;
   background-size: cover;
@@ -14,7 +14,6 @@
   background-color: gray;
 }
 
-
 #tablero {
   margin-top: 40px;
   height: 100vh;
@@ -24,7 +23,7 @@
   justify-content: center;
 }
 
-@media (max-width: 726px){
+@media (max-width: 726px) {
   #tablero {
     margin-top: 20px;
     height: 50vh;
@@ -33,7 +32,7 @@
     grid-template-columns: 180px 180px 180px;
     justify-content: center;
   }
-  .casilla{
+  .casilla {
     width: 180px;
     height: 180px;
     position: relative;
