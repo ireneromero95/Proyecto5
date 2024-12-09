@@ -1,31 +1,31 @@
 import {
   printNewPointsTemplate,
   printNewPointsTemplateTresRayas
-} from '../Button/Button'
-import './Tresenraya.css'
+} from '../Button/Button';
+import './Tresenraya.css';
 
-let contador = 0
-let puntuacion = 0
-let puntuacion2 = 0
+let juegoTerminado = false;
+let contador = 0;
+let puntuacion = 0;
+let puntuacion2 = 0;
 
-//He creado la funcion comprobar
+// He creado la funcion comprobar
 const comprobar = () => {
-  const equis = 'url(../../assets/tresenrayas/equis.png)'
-  const circulo = 'url(../../assets/tresenrayas/circulo.png)'
-  //Aquí hay muchísimo texto intenté hacer un bucle pero no se me ocurría
-  //cómo hacer para casilla[i]
+  const equis = 'url(../../assets/tresenrayas/equis.png)';
+  const circulo = 'url(../../assets/tresenrayas/circulo.png)';
 
-  const casilla1 = document.getElementById('1')
-  const casilla2 = document.getElementById('2')
-  const casilla3 = document.getElementById('3')
-  const casilla4 = document.getElementById('4')
-  const casilla5 = document.getElementById('5')
-  const casilla6 = document.getElementById('6')
-  const casilla7 = document.getElementById('7')
-  const casilla8 = document.getElementById('8')
-  const casilla9 = document.getElementById('9')
-  const casilla10 = document.getElementById('10')
+  // Obtener las casillas
+  const casilla1 = document.getElementById('1');
+  const casilla2 = document.getElementById('2');
+  const casilla3 = document.getElementById('3');
+  const casilla4 = document.getElementById('4');
+  const casilla5 = document.getElementById('5');
+  const casilla6 = document.getElementById('6');
+  const casilla7 = document.getElementById('7');
+  const casilla8 = document.getElementById('8');
+  const casilla9 = document.getElementById('9');
 
+  // Comprobar si el jugador X (equis) ha ganado
   if (
     (casilla1.className === casilla2.className &&
       casilla2.className === casilla3.className &&
@@ -47,20 +47,28 @@ const comprobar = () => {
       casilla2.className === 'equis') ||
     (casilla1.className === casilla5.className &&
       casilla1.className === casilla9.className &&
-      casilla1.className === 'equis')
+      casilla1.className === 'equis') ||
+    (casilla3.className === casilla5.className &&
+      casilla3.className === casilla7.className &&
+      casilla3.className === 'equis')
   ) {
-    console.log('punto para equis')
-    puntuacion++
-    localStorage.setItem('puntosequis', puntuacion)
+    juegoTerminado = true;
+    puntuacion++;
+    localStorage.setItem('puntosequis', puntuacion);
+    mostrarMensaje('Enhorabuena, ha ganado X');
     setTimeout(() => {
-      document.querySelector('#tablero').remove()
-    }, '1000')
+      document.querySelector('#tablero').remove(); // Eliminar el tablero cuando gana X
+    }, 1000); // Se mantiene el tiempo para la animación del borrado
+
     setTimeout(() => {
-      document.querySelector('#newandpoints').remove()
-      printNewPointsTemplateTresRayas(puntuacion, puntuacion2)
-      tresrayas()
-    }, '1001')
+      document.querySelector('#newandpoints').remove();
+      printNewPointsTemplateTresRayas(puntuacion, puntuacion2);
+      tresrayas(); // Volver a crear el tablero
+    }, 1001);
+    return;
   }
+
+  // Comprobar si el jugador O (circulo) ha ganado
   if (
     (casilla1.className === casilla2.className &&
       casilla2.className === casilla3.className &&
@@ -82,65 +90,116 @@ const comprobar = () => {
       casilla7.className === 'circulo') ||
     (casilla1.className === casilla5.className &&
       casilla1.className === casilla9.className &&
-      casilla1.className === 'circulo')
+      casilla1.className === 'circulo') ||
+    (casilla3.className === casilla5.className &&
+      casilla3.className === casilla7.className &&
+      casilla3.className === 'circulo')
   ) {
-    console.log('punto para circulo')
-    puntuacion2++
-    localStorage.setItem('puntoscirculo', puntuacion2)
-    setTimeout(() => {
-      document.querySelector('#tablero').remove()
-    }, '1000')
-    setTimeout(() => {
-      document.querySelector('#newandpoints').remove()
-      printNewPointsTemplateTresRayas(puntuacion, puntuacion2)
-      tresrayas()
-    }, '1001')
-  }
-}
+    juegoTerminado = true;
+    puntuacion2++;
+    localStorage.setItem('puntoscirculo', puntuacion2);
 
-//Genera el marcador pero aún no recoge la puntuación
+    mostrarMensaje('Enhorabuena, ha ganado O');
+    setTimeout(() => {
+      document.querySelector('#tablero').remove();
+    }, 1000);
 
-const hacerequis = (casilla, id) => {
-  if (casilla.style.backgroundImage === '') {
-    if (contador % 2 == 0) {
-      contador++
-      casilla.style.backgroundImage = 'url(../../assets/tresenrayas/equis.png)'
-      casilla.parentNode.setAttribute('class', 'equis')
-    } else {
-      casilla.style.backgroundImage =
-        'url(../../assets/tresenrayas/circulo.png)'
-      contador++
-      casilla.parentNode.setAttribute('class', 'circulo')
-    }
+    setTimeout(() => {
+      document.querySelector('#newandpoints').remove();
+      printNewPointsTemplateTresRayas(puntuacion, puntuacion2);
+      tresrayas();
+    }, 1001);
+    return;
   } else {
-    console.log('Mal, elige una casilla vacía')
+    const todasLlenas = [
+      casilla1,
+      casilla2,
+      casilla3,
+      casilla4,
+      casilla5,
+      casilla6,
+      casilla7,
+      casilla8,
+      casilla9
+    ].every((casilla) => casilla.className !== ''); // Comprobar que todas las casillas están ocupadas
+
+    if (todasLlenas) {
+      mostrarMensaje('¡Empate!');
+      setTimeout(() => {
+        document.querySelector('#tablero').remove(); // Eliminar el tablero en empate
+      }, 1000);
+
+      setTimeout(() => {
+        document.querySelector('#newandpoints').remove();
+        printNewPointsTemplateTresRayas(puntuacion, puntuacion2);
+        tresrayas(); // Volver a crear el tablero
+      }, 1001);
+    }
   }
-}
+};
+
+// Función para manejar los clics en las casillas
+const hacerequis = (casilla, id) => {
+  if (juegoTerminado) {
+    return;
+  } else {
+    if (casilla.style.backgroundImage === '') {
+      if (contador % 2 == 0) {
+        contador++;
+        casilla.style.backgroundImage =
+          'url(../../assets/tresenrayas/equis.png)';
+        casilla.parentNode.setAttribute('class', 'equis');
+      } else {
+        casilla.style.backgroundImage =
+          'url(../../assets/tresenrayas/circulo.png)';
+        contador++;
+        casilla.parentNode.setAttribute('class', 'circulo');
+      }
+    } else {
+      console.log('Mal, elige una casilla vacía');
+    }
+  }
+};
+
+const mostrarMensaje = (mensaje) => {
+  const mensajeDiv = document.createElement('div');
+  mensajeDiv.setAttribute('id', 'mensaje-victoria');
+  mensajeDiv.textContent = mensaje;
+
+  document.body.appendChild(mensajeDiv);
+
+  // Eliminar el mensaje después de 2 segundos
+  setTimeout(() => {
+    juegoTerminado = false;
+    mensajeDiv.remove();
+  }, 2000);
+};
 
 export const inicializarrayas = () => {
-  let contador = 0
-  let puntuacion = 0
-  let puntuacion2 = 0
-  printNewPointsTemplateTresRayas(puntuacion, puntuacion2)
-  tresrayas()
-}
+  juegoTerminado = false;
+  puntuacion = 0;
+  puntuacion2 = 0;
+  printNewPointsTemplateTresRayas(puntuacion, puntuacion2);
+  tresrayas();
+};
 
 export const tresrayas = () => {
+  juegoTerminado = false;
   const casillaTemplate = () => {
-    return `<div class="casilla"></div>`
-  }
-  const tablero = document.createElement('div')
-  tablero.setAttribute('id', 'tablero')
-  document.querySelector('#Tresenraya').append(tablero)
+    return `<div class="casilla"></div>`;
+  };
+  const tablero = document.createElement('div');
+  tablero.setAttribute('id', 'tablero');
+  document.querySelector('#Tresenraya').append(tablero);
 
   for (let i = 0; i < 9; i++) {
-    const casillaDiv = document.createElement('div')
-    casillaDiv.setAttribute('id', i + 1)
-    casillaDiv.innerHTML = casillaTemplate()
-    document.querySelector('#tablero').append(casillaDiv)
+    const casillaDiv = document.createElement('div');
+    casillaDiv.setAttribute('id', i + 1);
+    casillaDiv.innerHTML = casillaTemplate();
+    document.querySelector('#tablero').append(casillaDiv);
     casillaDiv.addEventListener('click', () => {
-      hacerequis(casillaDiv.firstChild, casillaDiv.id)
-      comprobar()
-    })
+      hacerequis(casillaDiv.firstChild, casillaDiv.id);
+      comprobar();
+    });
   }
-}
+};
