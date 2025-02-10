@@ -1,11 +1,10 @@
- .cofre {
+.cofre {
   width: 150px;
-  position: absolute;
+  position: relative;
   z-index: 980;
   right: 130px;
-  bottom: 20px; 
-} 
-
+  bottom: 20px;
+}
 
 .gema {
   position: absolute;
@@ -15,24 +14,51 @@
   transition: all 0.5s;
 }
 
-#interfaz{
+#interfaz {
   margin-top: 40px;
   height: 100vh;
   max-height: 600px;
   display: grid;
-  grid-template-columns: 80% 20% ;
-  justify-content: center; 
+  grid-template-columns: 80% 20%;
+  justify-content: center;
 }
 
- #botones{
+#botones {
   display: flex;
   margin-right: 5rem;
 }
 
-
-#botones > *{
+#botones > * {
   margin: auto 4px;
   border-radius: 30px;
 }
 
+@media (max-width: 900px) {
+  .cofre {
+    right: 10px;
+    bottom: 10px;
+    width: 120px;
+  }
 
+  .gema {
+    width: 40px;
+  }
+
+  #interfaz {
+    grid-template-columns: 100%;
+    margin-top: 20px;
+    max-height: none;
+  }
+
+  #botones {
+    justify-content: center;
+    position: fixed;
+    top: 180px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  #botones > * {
+    margin: 10px;
+  }
+}

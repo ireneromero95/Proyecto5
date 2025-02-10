@@ -13,16 +13,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-#app{
-    height: 100vh;
-    max-height: 700px;
-    display: column;
-    flex-wrap:wrap;
-    align-items: center;
-    justify-content: center;
- }
+* {
+  box-sizing: border-box;
+}
 
-
-
-
-
+#app {
+  height: 100vh;
+  max-height: 700px;
+  display: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}

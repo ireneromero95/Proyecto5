@@ -7,13 +7,12 @@
   border-radius: 1rem;
   cursor: pointer;
   background-color: #007396;
-  background-image: url("https://www.transparenttextures.com/patterns/dark-geometric.png");
+  background-image: url('https://www.transparenttextures.com/patterns/dark-geometric.png');
 }
 
-.carta:hover{
+.carta:hover {
   transform: scale(1.1);
 }
-
 
 .carta div {
   width: 100%;
@@ -25,11 +24,11 @@
   position: absolute;
 }
 
-h3{
-  color:#007396;
+h3 {
+  color: #007396;
 }
 
-#cartas{
+#cartas {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -37,11 +36,24 @@ h3{
   max-height: 700px;
   width: 150vh;
   align-items: center;
- }
+}
 
- #Memoria{
+#Memoria {
   display: flex;
   justify-items: center;
   justify-content: center;
   align-items: center;
- }
+}
+
+@media (max-width: 900px) {
+  .carta {
+    width: 80px;
+    height: 110px;
+  }
+
+  #cartas {
+    width: 70vh;
+    max-height: 350px;
+    padding: 1rem;
+  }
+}

@@ -14,6 +14,12 @@
   background-color: gray;
 }
 
+#tablero div {
+  margin: 0;
+  padding: 0;
+  gap: 0;
+}
+
 #tablero {
   margin-top: 40px;
   height: 100vh;
@@ -21,6 +27,7 @@
   display: grid;
   grid-template-columns: 280px 280px 280px;
   justify-content: center;
+  gap: 0;
 }
 
 #mensaje-victoria {
@@ -37,7 +44,7 @@
   z-index: 10;
 }
 
-@media (max-width: 726px) {
+@media (max-width: 900px) {
   #tablero {
     margin-top: 20px;
     height: 50vh;
@@ -49,6 +56,28 @@
   .casilla {
     width: 180px;
     height: 180px;
+    position: relative;
+    transition: transform 0.7s;
+    cursor: pointer;
+    border: 1px solid #000;
+  }
+}
+
+@media (max-width: 588px) {
+  #tablero {
+    margin-top: 20px;
+    height: 50vh;
+    max-height: 700px;
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 100px 100px 100px;
+    justify-content: center;
+    gap: 0;
+  }
+  .casilla {
+    gap: 0px;
+    width: 100px;
+    height: 100px;
     position: relative;
     transition: transform 0.7s;
     cursor: pointer;
