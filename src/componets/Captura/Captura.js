@@ -49,6 +49,10 @@ export const captura = () => {
 };
 
 const createGema = () => {
+  if (juegoTerminado) {
+    return;
+  }
+
   const divPizarra = document.querySelector('#pizarra');
   //Añadiendo para controlar zona
   const rectPizarra = divPizarra.getBoundingClientRect();
@@ -79,6 +83,29 @@ const createGema = () => {
   divPizarra.append(imgGema);
 };
 
+const iniciarJuego = () => {
+  if (juegoTerminado) {
+    return;
+  }
+
+  let velocidad = 700;
+
+  const subirVelocidad = () => {
+    if (intervalo) clearInterval(intervalo); //revisar luego esto si veo que tal
+    velocidad = Math.max(200, 700 - puntuacion * 20);
+
+    intervalo = setInterval(() => {
+      createGema();
+    }, velocidad);
+  };
+
+  subirVelocidad();
+
+  document.addEventListener('gemCollected', () => {
+    subirVelocidad();
+  });
+};
+
 const recogerGema = (e) => {
   console.log(juegoTerminado);
   if (juegoTerminado) return;
@@ -89,7 +116,7 @@ const recogerGema = (e) => {
 
   /// No funciona
 
-  if (puntuacion >= 5) {
+  if (puntuacion >= 20) {
     juegoTerminado = true;
   }
 
@@ -98,6 +125,9 @@ const recogerGema = (e) => {
     clearInterval(intervalo); // Detener el intervalo de las gemas
     intervalo = null;
   }
+
+  const event = new Event('gemCollected');
+  document.dispatchEvent(event);
 
   const cofre = document.querySelector(`#cofre`);
   const posicionCofre = cofre.getBoundingClientRect();
@@ -110,19 +140,10 @@ const recogerGema = (e) => {
   }, '300');
 };
 
-const iniciarJuego = () => {
-  if (juegoTerminado) {
-    return;
-  }
-  intervalo = setInterval(() => {
-    createGema();
-  }, 700);
-};
-
 const mostrarVictoria = () => {
   const victoriaMensaje = document.createElement('div');
   victoriaMensaje.id = 'victoriaMensaje';
-  victoriaMensaje.textContent = '¡Victoria! Has alcanzado 5 puntos';
+  victoriaMensaje.textContent = '¡Victoria! Has alcanzado 20 puntos';
 
   document.querySelector('#pizarra').appendChild(victoriaMensaje);
 };
